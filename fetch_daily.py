@@ -67,9 +67,7 @@ def main():
     api = LeetCodeApi()
     daily_slug = api.send_graphql_post("questionOfTheDay")[
         "activeDailyCodingChallengeQuestion"]["question"]['titleSlug']
-
-    Path("../4. Median of Two Sorted Arrays.cpp").unlink()
-    daily_slug = "median-of-two-sorted-arrays"  # For testing.
+    print(f"{daily_slug = }")
 
     # Generate solution cpp file
     solution_cpp = Path("../"
