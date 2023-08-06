@@ -1,7 +1,15 @@
 from pathlib import Path
 import shutil
+import sys
 
 import leetcode_api
+
+
+def prompt():
+    choice = input('Proceed? [y/N]')
+    if choice not in ('Y', 'y', 'yes'):
+        print('Abort')
+        sys.exit(1)
 
 
 def write_to_file(path, obj) -> None:
@@ -20,8 +28,8 @@ def main():
                         f'{api.question_id(daily_slug)}. '
                         f'{api.question_title(daily_slug)}.cpp')
     if solution_cpp.exists():
-        raise FileExistsError(
-            f'Solution file already exists: {solution_cpp.name}')
+        print(f'Solution file already exists: {solution_cpp.name}')
+        prompt()
     with open(solution_cpp, 'w', encoding='utf-8') as f:
         f.write(api.default_code(daily_slug))
 
