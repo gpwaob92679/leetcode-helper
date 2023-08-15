@@ -21,6 +21,15 @@ ListNode *BuildList(const size_t size) {
   }
   return nodes[0];
 }
+ListNode *BuildList(const vector<int> &nums) {
+  vector<ListNode *> nodes(nums.size());
+  nodes[0] = new ListNode(nums[0]);
+  for (size_t i = 1; i < nums.size(); ++i) {
+    nodes[i] = new ListNode(nums[i]);
+    nodes[i - 1]->next = nodes[i];
+  }
+  return nodes[0];
+}
 
 void PrintList(ListNode *head) {
   cerr << '{';
