@@ -27,13 +27,10 @@ typedef pair<double, double> pdd;
 typedef vector<int> vi;
 typedef vector<vector<int> > vvi;
 
-inline int readint() { int x; cin >> x; return x; }
-
 const ll MOD = 1000000007;
 const ll INF = 0x3f3f3f3f3f3f3f3f;
 const int iNF = 0x3f3f3f3f;
 const ll MAXN = 100005;
-
 const int dr[] = {0, 0, 1, -1, 1, 1, -1, -1};
 const int dc[] = {1, -1, 0, 0, 1, -1, 1, -1};
 
@@ -41,22 +38,22 @@ const int dc[] = {1, -1, 0, 0, 1, -1, 1, -1};
 #ifdef __GNUG__
 #define GP_FUNC __PRETTY_FUNCTION__
 #elif defined(_MSC_VER)
-//#define GP_FUNC ""
 #define GP_FUNC __FUNCSIG__
-#endif
+#endif  // __GNUG__
 #define DEBUG(...) do {\
   fprintf(stderr, "%s - %d (%s) = ", GP_FUNC, __LINE__, #__VA_ARGS__);\
   _do(__VA_ARGS__);\
 } while(0)
 #define debug(...) DEBUG(__VA_ARGS__)
 template<typename It> ostream &_OUTC(ostream &_s, It _ita, It _itb);
-template<typename _a> ostream &operator << (ostream &_s, vector<_a> &_c) { return _OUTC(_s, ALL(_c)); }
-template<typename _a> ostream &operator << (ostream &_s, set<_a> &_c) { return _OUTC(_s, ALL(_c)); }
-template<typename _a> ostream &operator << (ostream &_s, deque<_a> &_c) { return _OUTC(_s, ALL(_c)); }
-template<typename _a, typename _b> ostream &operator << (ostream &_s, map<_a, _b> &_c) { return _OUTC(_s, ALL(_c)); }
-template<typename T>void _do(T &&_x) { cerr << _x << endl; }
+template<typename _a> ostream &operator<<(ostream &_s, vector<_a> &_c) { return _OUTC(_s, ALL(_c)); }
+template<typename _a> ostream &operator<<(ostream &_s, set<_a> &_c) { return _OUTC(_s, ALL(_c)); }
+template<typename _a> ostream &operator<<(ostream &_s, deque<_a> &_c) { return _OUTC(_s, ALL(_c)); }
+template<typename _a, typename _b> ostream &operator<<(ostream &_s, map<_a, _b> &_c) { return _OUTC(_s, ALL(_c)); }
+template<typename _a, typename _b> ostream &operator<<(ostream &_s, unordered_map<_a, _b> &_c) { return _OUTC(_s, ALL(_c)); }
+template<typename T> void _do(T &&_x) { cerr << _x << endl; }
 template<typename T, typename ...S> void _do(T &&_x, S &&..._t) { cerr << _x << ", "; _do(_t...); }
-template<typename _a, typename _b> ostream &operator << (ostream &_s, pair<_a, _b> _p) { return _s << "(" << _p.first << "," << _p.second << ")"; }
+template<typename _a, typename _b> ostream &operator<<(ostream &_s, pair<_a, _b> _p) { return _s << "(" << _p.first << "," << _p.second << ")"; }
 template<typename _t> void pary(_t _a, _t _b) { _OUTC(cerr, _a, _b); cerr << endl; }
 template<typename It> ostream &_OUTC(ostream &_s, It _ita, It _itb) {
   _s << "{";
@@ -92,7 +89,7 @@ class Timer {
 #define endl '\n'
 #define IOS() ios_base::sync_with_stdio(0);cin.tie(0)
 #define ASSERT(x)
-#endif
+#endif  // GP_DEBUG
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 // clang-format on
 
