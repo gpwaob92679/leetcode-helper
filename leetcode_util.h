@@ -10,6 +10,16 @@ struct ListNode {
   ListNode(int x) : val(x), next(nullptr) {}
   ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
+
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  TreeNode(int x, TreeNode *left, TreeNode *right)
+      : val(x), left(left), right(right) {}
+};
 #pragma GCC diagnostic pop
 
 ListNode *BuildList(const size_t size) {
@@ -37,6 +47,27 @@ void PrintList(ListNode *head) {
     cerr << node->val << (node->next ? " -> " : "");
   }
   cerr << '}' << endl;
+}
+
+TreeNode *BuildTree(const size_t index, const vector<int> &nums) {
+  TreeNode *node = new TreeNode(nums[index]);
+  if (index * 2 + 1 < nums.size() && nums[index * 2 + 1] != -1) {
+    node->left = BuildTree(index * 2 + 1, nums);
+  }
+  if (index * 2 + 2 < nums.size() && nums[index * 2 + 2] != -1) {
+    node->right = BuildTree(index * 2 + 2, nums);
+  }
+  return node;
+}
+
+void PrintTree(const TreeNode *node) {
+  if (node->left) {
+    PrintTree(node->left);
+  }
+  cerr << node->val << ' ';
+  if (node->right) {
+    PrintTree(node->right);
+  }
 }
 }  // namespace leetcode_util
 
