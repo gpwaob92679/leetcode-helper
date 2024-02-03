@@ -12,11 +12,6 @@ def prompt():
         sys.exit(1)
 
 
-def write_to_file(path, obj) -> None:
-    with open(path, 'w', encoding='utf-8') as f:
-        f.write(obj)
-
-
 def main():
     api = leetcode_api.LeetCodeApi()
     daily_slug = api.send_graphql_post('questionOfTheDay')[
