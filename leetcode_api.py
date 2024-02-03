@@ -42,9 +42,11 @@ class LeetCodeApi:
                      lang_slug: str | None = 'cpp') -> str:
         data = self.send_graphql_post('questionEditorData',
                                       {'titleSlug': title_slug})
-        snippet = next(x for x in data['question']['codeSnippets']
-                       if x['langSlug'] == lang_slug)
-        return snippet['code']
+        for snippet in data['question']['codeSnippets']:
+            if snippet['langSlug'] == lang_slug:
+                return snippet['code']
+        raise LeetCodeApiError(
+            f'Default code not found for language: {lang_slug}')
 
 
 class LeetCodeApiEndpoints:

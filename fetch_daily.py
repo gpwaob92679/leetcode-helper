@@ -22,6 +22,7 @@ def main():
     solution_cpp = Path('../'
                         f'{api.question_id(daily_slug)}. '
                         f'{api.question_title(daily_slug)}.cpp')
+    print(f'{solution_cpp = }')
     if solution_cpp.exists():
         print(f'Solution file already exists: {solution_cpp.name}')
         prompt()
