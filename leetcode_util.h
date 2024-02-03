@@ -1,7 +1,12 @@
 #ifndef LEETCODE_UTIL_H_
 #define LEETCODE_UTIL_H_
 
+#include <cstddef>
+#include <iostream>
+#include <vector>
+
 namespace leetcode_util {
+
 #pragma GCC diagnostic ignored "-Wshadow"
 struct ListNode {
   int val;
@@ -22,8 +27,8 @@ struct TreeNode {
 };
 #pragma GCC diagnostic pop
 
-ListNode *BuildList(const size_t size) {
-  vector<ListNode *> nodes(size);
+inline ListNode *BuildList(const size_t size) {
+  std::vector<ListNode *> nodes(size);
   nodes[0] = new ListNode(1);
   for (size_t i = 1; i < size; ++i) {
     nodes[i] = new ListNode(i + 1);
@@ -31,8 +36,8 @@ ListNode *BuildList(const size_t size) {
   }
   return nodes[0];
 }
-ListNode *BuildList(const vector<int> &nums) {
-  vector<ListNode *> nodes(nums.size());
+inline ListNode *BuildList(const std::vector<int> &nums) {
+  std::vector<ListNode *> nodes(nums.size());
   nodes[0] = new ListNode(nums[0]);
   for (size_t i = 1; i < nums.size(); ++i) {
     nodes[i] = new ListNode(nums[i]);
@@ -41,15 +46,15 @@ ListNode *BuildList(const vector<int> &nums) {
   return nodes[0];
 }
 
-void PrintList(ListNode *head) {
-  cerr << '{';
+inline void PrintList(ListNode *head) {
+  std::cerr << '{';
   for (ListNode *node = head; node; node = node->next) {
-    cerr << node->val << (node->next ? " -> " : "");
+    std::cerr << node->val << (node->next ? " -> " : "");
   }
-  cerr << '}' << endl;
+  std::cerr << '}' << std::endl;
 }
 
-TreeNode *BuildTree(const size_t index, const vector<int> &nums) {
+inline TreeNode *BuildTree(const size_t index, const std::vector<int> &nums) {
   TreeNode *node = new TreeNode(nums[index]);
   if (index * 2 + 1 < nums.size() && nums[index * 2 + 1] != -1) {
     node->left = BuildTree(index * 2 + 1, nums);
@@ -60,15 +65,16 @@ TreeNode *BuildTree(const size_t index, const vector<int> &nums) {
   return node;
 }
 
-void PrintTree(const TreeNode *node) {
+inline void PrintTree(const TreeNode *node) {
   if (node->left) {
     PrintTree(node->left);
   }
-  cerr << node->val << ' ';
+  std::cerr << node->val << ' ';
   if (node->right) {
     PrintTree(node->right);
   }
 }
+
 }  // namespace leetcode_util
 
 #endif  // LEETCODE_UTIL_H_
