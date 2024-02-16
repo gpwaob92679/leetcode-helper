@@ -30,12 +30,9 @@ class LeetCodeApi:
     def question_title(self, title_slug: str) -> str:
         data = self.send_graphql_post('questionTitle',
                                       {'titleSlug': title_slug})
-        return data['question']['title']
-
-    def question_id(self, title_slug: str) -> str:
-        data = self.send_graphql_post('questionTitle',
-                                      {'titleSlug': title_slug})
-        return data['question']['questionFrontendId']
+        if data['question'] is None:
+            raise LeetCodeApiError(f'Question not found: {title_slug}')
+        return data['question']
 
     def default_code(self,
                      title_slug: str,

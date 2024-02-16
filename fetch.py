@@ -1,8 +1,16 @@
+import argparse
 from pathlib import Path
 import shutil
 import sys
 
 import leetcode_api
+
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    'slug',
+    nargs='?',
+    help='Title slug of the problem. If not provided, fetch the daily problem.')
+args = parser.parse_args()
 
 
 def prompt():
@@ -14,20 +22,22 @@ def prompt():
 
 def main():
     api = leetcode_api.LeetCodeApi()
-    daily_slug = api.send_graphql_post('questionOfTheDay')[
-        'activeDailyCodingChallengeQuestion']['question']['titleSlug']
-    print(f'{daily_slug = }')
+    slug = args.slug or (
+        api.send_graphql_post('questionOfTheDay')
+        ['activeDailyCodingChallengeQuestion']['question']['titleSlug'])
+    print(f'{slug = }')
+    question_title = api.question_title(slug)
 
     # Generate solution cpp file
     solution_cpp = Path('../'
-                        f'{api.question_id(daily_slug)}. '
-                        f'{api.question_title(daily_slug)}.cpp')
+                        f'{question_title["questionFrontendId"]}. '
+                        f'{question_title["title"]}.cpp')
     print(f'{solution_cpp = }')
     if solution_cpp.exists():
         print(f'Solution file already exists: {solution_cpp.name}')
         prompt()
     with open(solution_cpp, 'w', encoding='utf-8') as f:
-        f.write(api.default_code(daily_slug))
+        f.write(api.default_code(slug))
 
     # Generate main.cpp
     main_cpp = Path('../main.cpp')
