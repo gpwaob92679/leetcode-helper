@@ -10,6 +10,10 @@ parser.add_argument(
     'slug',
     nargs='?',
     help='Title slug of the problem. If not provided, fetch the daily problem.')
+parser.add_argument('-d',
+                    '--dir',
+                    help='Directory to save solution files.',
+                    default='..')
 args = parser.parse_args()
 
 
@@ -28,10 +32,14 @@ def main():
     print(f'{slug = }')
     question_title = api.question_title(slug)
 
+    solution_dir = Path(args.dir)
+    if not solution_dir.exists():
+        solution_dir.mkdir()
+
     # Generate solution cpp file
-    solution_cpp = Path('../'
-                        f'{question_title["questionFrontendId"]}. '
-                        f'{question_title["title"]}.cpp')
+    solution_cpp = solution_dir / Path(
+        f'{question_title["questionFrontendId"]}. '
+        f'{question_title["title"]}.cpp')
     print(f'{solution_cpp = }')
     if solution_cpp.exists():
         print(f'Solution file already exists: {solution_cpp.name}')
@@ -40,9 +48,9 @@ def main():
         f.write(api.default_code(slug))
 
     # Generate main.cpp
-    main_cpp = Path('../main.cpp')
+    main_cpp = solution_dir / Path('main.cpp')
     if main_cpp.exists():
-        shutil.copy2(main_cpp, '../main_old.cpp')
+        shutil.copy2(main_cpp, solution_dir / 'main_old.cpp')
     shutil.copyfile('main_template.cpp', main_cpp)
 
     # TODO: Auto generate input variables and test cases
