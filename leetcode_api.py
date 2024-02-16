@@ -27,7 +27,7 @@ class LeetCodeApi:
             raise LeetCodeApiError(data['errors'])
         return data['data']
 
-    def question_title(self, title_slug: str) -> str:
+    def question_title(self, title_slug: str) -> dict[str, Any]:
         data = self.send_graphql_post('questionTitle',
                                       {'titleSlug': title_slug})
         if data['question'] is None:
