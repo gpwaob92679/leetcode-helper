@@ -60,6 +60,7 @@ def main():
             lines[i] = lines[i].replace('@SOLUTION_SOURCE@', solution_cpp.name)
         f.seek(0)
         f.writelines(lines)
+        f.truncate()
 
 
 if __name__ == '__main__':
